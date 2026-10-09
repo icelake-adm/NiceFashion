@@ -53,7 +53,7 @@ const CATEGORIES=[
 ];
 const PRODUCTS=[
 {"id":"shirts-01","name":"Premium Black Shirt","cat":"shirts","price":750,"sizes":["M","L","XL","XXL"],"new":true,"old":950,"desc":"","out":false},
-{"id":"shirts-02","name":"Blue-Grey Classic Shirt","cat":"shirts","price":0,"sizes":["M","L","XL","XXL"],"new":true},
+{"id":"shirts-02","name":"Blue-Grey Classic Shirt","cat":"shirts","price":750,"sizes":["M","L","XL","XXL"],"new":true,"old":950,"desc":"","out":false},
 {"id":"shirts-03","name":"Maroon Party Shirt","cat":"shirts","price":0,"sizes":["M","L","XL","XXL"],"new":true},
 {"id":"shirts-04","name":"Maroon Classic Shirt","cat":"shirts","price":0,"sizes":["M","L","XL","XXL"],"new":true},
 {"id":"shirts-05","name":"Bottle Green Shirt","cat":"shirts","price":0,"sizes":["M","L","XL","XXL"],"new":true},

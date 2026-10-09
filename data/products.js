@@ -1,4 +1,4 @@
-/* Managed by admin.html. Image = assets/images/<cat>/<id>.jpg ; "new":true = show on site ; "out":true = sold out */
+/* Managed by admin.html. "new":true = show on site ; "out":true = sold out ; "feat":true = featured */
 const CATEGORIES=[
  {
   "key": "shirts",
@@ -47,8 +47,8 @@ const CATEGORIES=[
  },
  {
   "key": "accessories",
-  "label": "Accessories",
-  "bn": "এক্সেসরিজ"
+  "label": "Private Items",
+  "bn": "গোপনীয় জিনিস"
  }
 ];
 const PRODUCTS=[

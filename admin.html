@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>NICE FASHION Admin</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#09090a;color:#f4efe6;font:15px/1.5 system-ui,'Noto Sans Bengali',sans-serif;padding:14px 14px 90px}
+h1{font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:#c8a96e;margin:0 0 12px}h3{margin:14px 0 6px;font-size:14px;color:#c8a96e}
+input,textarea,select,button{width:100%;padding:12px;border:1px solid #2a2a30;background:#141417;color:#f4efe6;font:inherit;margin-bottom:8px;border-radius:0}
+input[type=color]{height:46px;padding:4px}button{background:#c8a96e;color:#111;font-weight:600;border:0;cursor:pointer}button.o{background:none;color:#c8a96e;border:1px solid #c8a96e}button.d{background:#5a1d1d;color:#fff}
+.bx{border:1px solid #26262b;background:#101012;padding:12px;margin-bottom:12px}.m{color:#9b978e;font-size:13px;margin:4px 0}label.m{display:block;margin-top:6px}
+.tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto}.tabs button{flex:none;width:auto;margin:0;background:#141417;color:#f4efe6;padding:12px 14px}.tabs button.on{background:#c8a96e;color:#111}
+.top{display:flex;gap:8px}.top button{width:110px}.it{display:flex;gap:10px;border:1px solid #26262b;background:#101012;padding:8px;margin-bottom:8px;cursor:pointer;align-items:center}
+.it img{width:52px;height:65px;object-fit:cover;background:#222;flex:none}.chk{display:flex;gap:10px;align-items:center;margin-bottom:8px}.chk input{width:22px;margin:0}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#101012;border-top:1px solid #c8a96e;padding:10px 14px}.bar button{margin:0}
+.pv{max-width:160px;margin-bottom:8px;display:block}.sl{display:flex;gap:10px;align-items:center;margin-bottom:8px}.sl img{width:70px;height:70px;object-fit:cover;background:#222;flex:none}.sl div{flex:1}
+.row2{display:flex;gap:6px}.row2 button{width:48px;margin:0}.th2{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}.th2 div{position:relative}.th2 img{width:60px;height:75px;object-fit:cover}.th2 a{position:absolute;top:0;right:0;background:#000;color:#fff;padding:0 6px;cursor:pointer}
+</style></head><body><div id="a"></div><div class="bar" id="bar" style="display:none"></div>
+<script>
+const $=s=>document.querySelector(s),v=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'),clean=s=>String(s).replace(/[<>"]/g,''),sl=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const DEF={secTrust:true,secCategories:true,secNew:true,secBanner:true,secCta:true,accent:'#c8a96e',bgColor:'#09090a'};
+const S={g:JSON.parse(localStorage.getItem('nf_gh')||'{}'),P:[],C:[],PG:[],ST:{},F:{},f:{},del:[],t:'p',e:null,d:null,dp:0,ds:0,dc:0,q:'',cg:null,ok:0};
+const GR={index:'home',category:'shop',gallery:'gallery',about:'about',contact:'contact',payment:'payment'};
+const api=(p,m,b)=>fetch(`https://api.github.com/repos/${S.g.o}/${S.g.r}/contents/${p}`+(m?'':`?ref=${S.g.b}&t=${Date.now()}`),{method:m||'GET',body:b&&JSON.stringify(b),headers:{Authorization:'Bearer '+S.g.t,Accept:'application/vnd.github+json','Content-Type':'application/json'}});
+const u8=s=>{let x='';new TextEncoder().encode(s).forEach(c=>x+=String.fromCharCode(c));return btoa(x)};
+const d8=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g,'')),c=>c.charCodeAt(0)));
+const rs=(f,w,png)=>new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,w/i.width),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);r(c.toDataURL(png?'image/png':'image/jpeg',.82))};i.src=URL.createObjectURL(f)});
+const SZ={panjabi:'38,40,42,44',jeans:'30,32,34,36',pants:'30,32,34,36',trousers:'30,32,34,36',accessories:'Free Size'};
+const SL=[['Home hero photo','assets/images/hero/hero.jpg',1000],['Home banner photo','assets/images/banners/jeans-collection.jpg',1200],['About photo','assets/images/about/about.jpg',800],['Popup photo','assets/images/popup/popup.jpg',800],['Bangla QR (PNG)','assets/images/payment/bangla-qr.png',600,1]];
+for(let i=1;i<=12;i++)SL.push(['Gallery '+i,`assets/images/gallery/gallery-${String(i).padStart(2,'0')}.jpg`,900]);
+const cnt=()=>(S.dp?1:0)+(S.ds?1:0)+(S.dc?1:0)+Object.keys(S.f).length+S.del.length;
+const raw=p=>location.protocol.startsWith('http')?p:`https://raw.githubusercontent.com/${S.g.o}/${S.g.r}/${S.g.b}/${p}`;
+const img=p=>S.f[p]?S.f[p].u:raw(p)+'?'+Math.floor(Date.now()/60000);
+const pimg=p=>img(p.img||`assets/images/${p.cat}/${p.id}.jpg`);
+const pd=p=>p.price>0?(p.old>p.price?`<s>${p.old}</s> → <b>${p.price}</b> (−${Math.round((1-p.price/p.old)*100)}%)`:p.price):'no price';
+const ld=async p=>{const r=await api(p);if(!r.ok)throw p;return d8((await r.json()).content)};
+async function conn(){S.g={o:$('#o').value.trim(),r:$('#r').value.trim(),b:$('#b').value.trim()||'main',t:$('#t').value.trim()};localStorage.setItem('nf_gh',JSON.stringify(S.g));$('#er').textContent='Connecting...';
+try{const[a,b,c]=await Promise.all([ld('data/products.js'),ld('config.js'),ld('data/site.js')]);
+const x=new Function(a+';return{CATEGORIES,PRODUCTS}')(),y=new Function(b+';return CONFIG')(),z=new Function(c+';return{PAGES,SITE}')();
+S.C=x.CATEGORIES;S.P=x.PRODUCTS;S.F={...DEF,...y};S.PG=z.PAGES;S.ST=z.SITE;S.ST.custom=S.ST.custom||{};S.ok=1;R()}
+catch(e){$('#er').textContent=e==='data/site.js'?'data/site.js is missing in your repository. Upload the new update files first (see README).':'Could not connect. Check username, repository, branch and token (Contents: read and write).'}}
+function R(){const A=$('#a');
+if(!S.ok){A.innerHTML=`<h1>NICE FASHION Admin</h1><div class="bx"><p class="m">Connect your GitHub repository (one time).</p><input id="o" placeholder="GitHub username" value="${v(S.g.o)}"><input id="r" placeholder="Repository name" value="${v(S.g.r)}"><input id="b" placeholder="Branch (main)" value="${v(S.g.b||'main')}"><input id="t" type="password" placeholder="Access token" value="${v(S.g.t)}"><button onclick="conn()">Connect</button><p class="m" id="er"></p><p class="m">The token is saved only in this browser.</p></div>`;bar();return}
+const T=[['p','Products'],['c','Categories'],['g','Pages'],['s','Settings'],['i','Images']];
+let h=`<h1>NICE FASHION Admin</h1><div class="tabs">${T.map(t=>`<button class="${S.t===t[0]?'on':''}" onclick="S.t='${t[0]}';S.e=null;S.cg=null;R()">${t[1]}</button>`).join('')}</div>`;
+h+=S.t==='p'?vp():S.t==='c'?vc():S.t==='g'?vg():S.t==='s'?vs():vi();
+A.innerHTML=h+'<p class="m" id="ms"></p>';if($('#pl'))pl();if($('#dcp'))dc();bar()}
+function vp(){if(S.e===null)return `<div class="top"><input id="q" placeholder="Search..." value="${v(S.q)}" oninput="S.q=this.value;pl()"><button onclick="ed(-1)">+ Add</button></div><div id="pl"></div>`;
+const d=S.d,n=S.e<0;return `<div class="bx"><h3>${n?'Add product':'Edit product'}</h3><input id="n" placeholder="Product name" value="${v(d.name)}"><select id="c" onchange="if(S.e<0)$('#z').value=SZ[this.value]||'M,L,XL,XXL'">${S.C.map(c=>`<option value="${c.key}" ${c.key===d.cat?'selected':''}>${v(c.label)}</option>`).join('')}</select>
+<input id="pr" type="number" placeholder="Price" value="${d.price||''}" oninput="dc()"><input id="ol" type="number" placeholder="Old price (optional, shows discount)" value="${d.old||''}" oninput="dc()"><p class="m" id="dcp"></p><input id="z" placeholder="Sizes, comma separated" value="${v((d.sizes||[]).join(','))}"><input id="cl" placeholder="Colors, comma separated (optional)" value="${v((d.colors||[]).join(','))}"><textarea id="ds" rows="3" placeholder="Description">${v(d.desc)}</textarea>
+<div class="chk"><input id="w" type="checkbox" ${d.new?'checked':''}> Show on website</div><div class="chk"><input id="ft" type="checkbox" ${d.feat?'checked':''}> Featured (shown first on Home)</div><div class="chk"><input id="x" type="checkbox" ${d.out?'checked':''}> Sold out</div>
+<h3>Main photo</h3><img class="pv" id="pv" src="${d._u||(n?'':pimg(d))}" alt=""><input type="file" accept="image/*" onchange="ph(this)"><h3>More photos</h3><div class="th2">${(d.more||[]).map((m,k)=>`<div><img src="${img(m)}" alt=""><a onclick="rm(${k})">×</a></div>`).join('')}</div><input type="file" accept="image/*" multiple onchange="pm(this)"><p class="m" id="mc">${(d._m||[]).length?(d._m.length+' new photo(s) added'):''}</p>
+<button onclick="sp()">Save product</button><button class="o" onclick="S.e=null;R()">Cancel</button>${n?'':'<button class="d" onclick="dl()">Delete product</button>'}</div>`}
+function pl(){const q=S.q.toLowerCase();$('#pl').innerHTML=S.P.map((p,i)=>[p,i]).filter(a=>a[0].name.toLowerCase().includes(q)).map(([p,i])=>`<div class="it" onclick="ed(${i})"><img src="${pimg(p)}" alt=""><div><b>${v(p.name)}</b><br><span class="m">${v(p.cat)} · ${pd(p)}${p.out?' · SOLD OUT':''}${p.new?'':' · hidden'}${p.feat?' · ★':''}</span></div></div>`).join('')||'<p class="m">No products.</p>'}
+function dc(){const p=+$('#pr').value,o=+$('#ol').value;$('#dcp').innerHTML=o>p&&p>0?`Discount: <s>${o}</s> → ${p} (−${Math.round((1-p/o)*100)}%)`:(o&&o<=p?'Old price must be higher than the price':'')}
+function ed(i){S.e=i;S.d=i<0?{name:'',cat:S.C[0].key,price:0,old:0,sizes:'M,L,XL,XXL'.split(','),colors:[],desc:'',new:true,out:false,feat:false,more:[]}:{...S.P[i],more:[...(S.P[i].more||[])]};R()}
+async function ph(f){if(!f.files[0])return;S.d._u=await rs(f.files[0],900);S.d._b=S.d._u.split(',')[1];$('#pv').src=S.d._u}
+async function pm(f){S.d._m=S.d._m||[];for(const x of f.files){const u=await rs(x,900);S.d._m.push({u,b:u.split(',')[1]})}$('#mc').textContent=S.d._m.length+' new photo(s) added'}
+function rm(k){S.del.push(S.d.more[k]);S.d.more.splice(k,1);R()}
+function sp(){const d=S.d,n=S.e<0,L=s=>$(s).value.split(',').map(x=>clean(x.trim())).filter(Boolean);d.name=clean($('#n').value.trim());if(!d.name){alert('Enter a name');return}
+d.cat=$('#c').value;d.price=+$('#pr').value||0;d.old=+$('#ol').value||0;d.sizes=L('#z');d.colors=L('#cl');d.desc=clean($('#ds').value.trim());d.new=$('#w').checked;d.feat=$('#ft').checked;d.out=$('#x').checked;
+if(n){let m=0;S.P.filter(p=>p.cat===d.cat).forEach(p=>m=Math.max(m,+p.id.split('-').pop()||0));d.id=`${d.cat}-${String(m+1).padStart(2,'0')}`;d.img=`assets/images/${d.cat}/${d.id}.jpg`;if(!d._b){alert('Add a main photo for the new product');return}}
+else if(!d.img)d.img=`assets/images/${d.cat}/${d.id}.jpg`;
+const dir=d.img.replace(/\/[^/]*$/,'');if(d._b)S.f[d.img]={b:d._b,u:d._u};
+(d._m||[]).forEach((m,k)=>{const p=`${dir}/${d.id}-b${(d.more||[]).length+1}-${Date.now()%10000}.jpg`;S.f[p]=m;d.more.push(p)});
+delete d._b;delete d._u;delete d._m;n?S.P.push(d):S.P[S.e]=d;S.dp=1;S.e=null;R()}
+function dl(){if(confirm('Delete this product and its photos?')){const p=S.P[S.e];S.del.push(p.img||`assets/images/${p.cat}/${p.id}.jpg`,...(p.more||[]));S.P.splice(S.e,1);S.dp=1;S.e=null;R()}}
+function vc(){return `<div class="bx"><p class="m">Categories appear in Shop, menu chips and Home tiles.</p></div>`+S.C.map((c,i)=>`<div class="bx"><div class="sl"><img src="${img('assets/images/categories/'+c.key+'.jpg')}" alt="" onerror="this.style.opacity=.2"><div><input value="${v(c.label)}" oninput="cu(${i},'label',this.value)" placeholder="Name"><input value="${v(c.bn)}" oninput="cu(${i},'bn',this.value)" placeholder="Bangla name"></div></div><div class="chk"><input type="checkbox" ${c.show!==false?'checked':''} onchange="cu(${i},'show',this.checked)"> Show on website</div><p class="m">Cover photo</p><input type="file" accept="image/*" onchange="cc(${i},this)"><div class="row2"><button class="o" onclick="mv(S.C,${i},-1)">↑</button><button class="o" onclick="mv(S.C,${i},1)">↓</button><button class="d" style="width:auto;flex:1" onclick="cd(${i})">Delete</button></div></div>`).join('')+`<div class="bx"><h3>Add category</h3><input id="nl" placeholder="Name (e.g. Sweaters)"><input id="nb" placeholder="Bangla name"><button onclick="ca()">Add category</button></div>`}
+function cu(i,k,x){S.C[i][k]=x;S.dp=1;bar()}
+async function cc(i,f){if(!f.files[0])return;const u=await rs(f.files[0],700);S.f[`assets/images/categories/${S.C[i].key}.jpg`]={b:u.split(',')[1],u};R()}
+function cd(i){const c=S.C[i];if(S.P.some(p=>p.cat===c.key)){alert('This category has products. Move or delete them first, or just untick "Show on website".');return}if(confirm('Delete category?')){S.del.push(`assets/images/categories/${c.key}.jpg`);S.C.splice(i,1);S.dp=1;R()}}
+function ca(){const l=clean($('#nl').value.trim());if(!l){alert('Enter a name');return}let k=sl(l)||'cat'+(S.C.length+1);while(S.C.some(c=>c.key===k))k+='-2';S.C.push({key:k,label:l,bn:clean($('#nb').value.trim()),show:true});S.dp=1;R()}
+function mv(a,i,d){const j=i+d;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];a===S.C?S.dp=1:S.ds=1;R()}
+function fld(p,x){const lb=p.split('.').pop().replace(/_/g,' ');return `<label class="m">${lb}</label>`+(String(x).length>70?`<textarea rows="3" oninput="sc('${p}',this.value)">${v(x)}</textarea>`:`<input value="${v(x)}" oninput="sc('${p}',this.value)">`)}
+function sc(p,x){const k=p.split('.');let o=S.ST;k.slice(0,-1).forEach(a=>o=o[a]);o[k[k.length-1]]=x;S.ds=1;bar()}
+function vg(){if(S.cg!==null){const p=S.PG[S.cg],b=`<button class="o" onclick="S.cg=null;R()">← Back to pages</button>`;
+if(p.custom){const c=S.ST.custom[p.slug];return b+`<div class="bx"><h3>${v(p.t)}</h3>${fld('custom.'+p.slug+'.title',c.title)}<label class="m">body (blank line = new paragraph)</label><textarea rows="9" oninput="sc('custom.${p.slug}.body',this.value)">${v(c.body)}</textarea><label class="m">photo (optional)</label>${c.img?`<img class="pv" src="${img('assets/images/pages/'+p.slug+'.jpg')}" alt="">`:''}<input type="file" accept="image/*" onchange="pc('${p.slug}',this)"></div>`}
+const g=GR[p.k];return b+`<div class="bx"><h3>${v(p.t)} page texts</h3>${Object.keys(S.ST[g]).map(k=>fld(g+'.'+k,S.ST[g][k])).join('')}<p class="m">Photos for these pages are in the Images tab.</p></div>`}
+return `<div class="bx"><p class="m">Untick Published to hide a page from the menu and show "not available" on its link. Home cannot be hidden.</p></div>`+S.PG.map((p,i)=>`<div class="bx"><input value="${v(p.t)}" oninput="pu(${i},'t',this.value)" placeholder="Menu name"><input value="${v(p.bn)}" oninput="pu(${i},'bn',this.value)" placeholder="Bangla name"><div class="chk"><input type="checkbox" ${p.show!==false?'checked':''} ${p.k==='index'?'disabled':''} onchange="pu(${i},'show',this.checked)"> Published</div><div class="row2"><button class="o" onclick="mv(S.PG,${i},-1)">↑</button><button class="o" onclick="mv(S.PG,${i},1)">↓</button><button class="o" style="width:auto;flex:1" onclick="S.cg=${i};R()">Edit content</button>${p.custom?`<button class="d" onclick="pdel(${i})">×</button>`:''}</div></div>`).join('')+`<div class="bx"><h3>Add new page</h3><input id="np" placeholder="Page name (e.g. Size Guide)"><button onclick="pa()">Add page</button></div>`}
+function pu(i,k,x){S.PG[i][k]=x;S.ds=1;bar()}
+function pa(){const t=clean($('#np').value.trim());if(!t){alert('Enter a name');return}let s=sl(t)||'page'+(Date.now()%1000);while(S.ST.custom[s])s+='-2';S.PG.push({k:'x-'+s,t,bn:'',show:true,custom:true,slug:s});S.ST.custom[s]={title:t,body:'',img:false};S.ds=1;R()}
+function pdel(i){const p=S.PG[i];if(confirm('Delete this page?')){if(S.ST.custom[p.slug].img)S.del.push(`assets/images/pages/${p.slug}.jpg`);delete S.ST.custom[p.slug];S.PG.splice(i,1);S.ds=1;R()}}
+async function pc(s,f){if(!f.files[0])return;const u=await rs(f.files[0],900);S.f[`assets/images/pages/${s}.jpg`]={b:u.split(',')[1],u};S.ST.custom[s].img=true;S.ds=1;R()}
+function vs(){return `<div class="bx"><p class="m">Site settings (colors, offers, payment, delivery, sections). Tap Publish when done.</p>`+Object.keys(S.F).filter(k=>k!=='v').map(k=>{const x=S.F[k],lb=k.replace(/([A-Z])/g,' $1').toLowerCase(),n=typeof x==='number';
+return typeof x==='boolean'?`<div class="chk"><input type="checkbox" ${x?'checked':''} onchange="sf('${k}',this.checked)"> ${lb}</div>`:/accent|color/i.test(k)&&/^#[0-9a-f]{6}$/i.test(x)?`<label class="m">${lb}</label><input type="color" value="${x}" oninput="sf('${k}',this.value)">`:`<label class="m">${lb}</label>${String(x).length>60?`<textarea rows="3" oninput="sf('${k}',this.value,${n})">${v(x)}</textarea>`:`<input value="${v(x)}" oninput="sf('${k}',this.value,${n})">`}`}).join('')+`</div>`}
+function sf(k,x,num){S.F[k]=num?(+x||0):x;S.dc=1;bar()}
+function vi(){return `<div class="bx"><p class="m">Pick a new photo to replace the current one (same file name is kept).</p>`+SL.map((s,i)=>`<div class="sl"><img src="${img(s[1])}" alt=""><div><b>${s[0]}</b><input type="file" accept="image/*" onchange="si(${i},this)"></div></div>`).join('')+`</div>`}
+async function si(i,f){if(!f.files[0])return;const s=SL[i],u=await rs(f.files[0],s[2],s[3]);S.f[s[1]]={b:u.split(',')[1],u};R()}
+function bar(){const b=$('#bar'),n=S.ok?cnt():0;b.style.display=n?'block':'none';b.innerHTML=`<button onclick="pub()">Publish ${n} change${n>1?'s':''} to website</button>`}
+const msg=t=>{const m=$('#ms');if(m)m.textContent=t};
+async function pub(){const L=[];for(const p in S.f)L.push([p,S.f[p].b,'Update image']);
+if(S.dp)L.push(['data/products.js',u8(`/* Managed by admin.html. "new":true = show on site ; "out":true = sold out ; "feat":true = featured */\nconst CATEGORIES=${JSON.stringify(S.C,null,1)};\nconst PRODUCTS=[\n${S.P.map(p=>JSON.stringify(p)).join(',\n')}\n];\n`),'Update products']);
+if(S.ds)L.push(['data/site.js',u8(`/* Managed by admin.html (pages, menu and page texts). You can also edit by hand. */\nconst PAGES=${JSON.stringify(S.PG,null,1)};\nconst SITE=${JSON.stringify(S.ST,null,1)};\n`),'Update pages']);
+S.F.v=Date.now();L.push(['config.js',u8(`/* Managed by admin.html (you can also edit by hand) */\nconst CONFIG=${JSON.stringify(S.F,null,1)};\n`),'Update settings']);
+const D=[...new Set(S.del)].filter(p=>!S.f[p]);
+for(let i=0;i<L.length+D.length;i++){msg(`Saving ${i+1} of ${L.length+D.length}...`);
+if(i<L.length){const[p,c,m]=L[i],g=await api(p),sha=g.ok?(await g.json()).sha:undefined,r=await api(p,'PUT',{message:m,content:c,sha,branch:S.g.b});if(!r.ok){msg('Error: '+(await r.json()).message);return}}
+else{const p=D[i-L.length],g=await api(p);if(g.ok)await api(p,'DELETE',{message:'Delete file',sha:(await g.json()).sha,branch:S.g.b})}}
+S.f={};S.del=[];S.dp=S.ds=S.dc=0;R();msg('Done. The website updates in 1-2 minutes.')}
+R();
+</script></body></html>

@@ -1,4 +1,4 @@
-/* EDIT HERE: name, price (number, 0 = "ask on WhatsApp"), sizes. Image = assets/images/<cat>/<id>.jpg (replace file with the same name) */
+/* Managed by admin.html. Image = assets/images/<cat>/<id>.jpg ; "new":true = show on site ; "out":true = sold out */
 const CATEGORIES=[
  {
   "key": "shirts",
@@ -51,7 +51,8 @@ const CATEGORIES=[
   "bn": "এক্সেসরিজ"
  }
 ];
-const PRODUCTS=[{"id":"shirts-01","name":"Premium Black Shirt","cat":"shirts","price":0,"sizes":["M","L","XL","XXL"],"new":true},
+const PRODUCTS=[
+{"id":"shirts-01","name":"Premium Black Shirt","cat":"shirts","price":750,"sizes":["M","L","XL","XXL"],"new":true,"old":950,"desc":"","out":false},
 {"id":"shirts-02","name":"Blue-Grey Classic Shirt","cat":"shirts","price":0,"sizes":["M","L","XL","XXL"],"new":true},
 {"id":"shirts-03","name":"Maroon Party Shirt","cat":"shirts","price":0,"sizes":["M","L","XL","XXL"],"new":true},
 {"id":"shirts-04","name":"Maroon Classic Shirt","cat":"shirts","price":0,"sizes":["M","L","XL","XXL"],"new":true},
@@ -100,4 +101,5 @@ const PRODUCTS=[{"id":"shirts-01","name":"Premium Black Shirt","cat":"shirts","p
 {"id":"accessories-01","name":"Accessories Style 01","cat":"accessories","price":0,"sizes":["Free Size"],"new":false},
 {"id":"accessories-02","name":"Accessories Style 02","cat":"accessories","price":0,"sizes":["Free Size"],"new":false},
 {"id":"accessories-03","name":"Accessories Style 03","cat":"accessories","price":0,"sizes":["Free Size"],"new":false},
-{"id":"accessories-04","name":"Accessories Style 04","cat":"accessories","price":0,"sizes":["Free Size"],"new":false}];
+{"id":"accessories-04","name":"Accessories Style 04","cat":"accessories","price":0,"sizes":["Free Size"],"new":false}
+];

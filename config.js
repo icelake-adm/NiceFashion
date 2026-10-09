@@ -1,5 +1,12 @@
 /* Managed by admin.html (you can also edit by hand) */
 const CONFIG={
+ "secTrust": true,
+ "secCategories": true,
+ "secNew": true,
+ "secBanner": true,
+ "secCta": true,
+ "accent": "#c8a96e",
+ "bgColor": "#09090a",
  "brand": "NICE FASHION",
  "tagline": "Wear Your Confidence",
  "whatsapp": "01852209732",
@@ -17,5 +24,5 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1791538697203
+ "v": 1791542472111
 };

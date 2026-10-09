@@ -88,7 +88,7 @@ const SITE={
   "btn_msg": "Send on WhatsApp"
  },
  "payment": {
-  "title": "Pay with Bangla QR",
+  "title": "Pay with QR (Mobile Banking)",
   "s1": "Scan the QR with your bank app, bKash or Nagad.",
   "s2": "Pay the order amount.",
   "s3": "Send the screenshot on WhatsApp.",

@@ -69,7 +69,7 @@ const SITE={
   "sub": "Our latest looks."
  },
  "about": {
-  "founder": "Founder Name",
+  "founder": "Md. Nahid Newas",
   "founder_title": "Founder",
   "shop_addr": "Shop address, City",
   "office_addr": "Office address, City",

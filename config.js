@@ -29,5 +29,5 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1791626666925
+ "v": 1791639638350
 };

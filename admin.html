@@ -19,9 +19,11 @@ const DEF={onlineSelling:false,offerTextOff:'Visit our showroom · Easy exchange
 const S={g:JSON.parse(localStorage.getItem('nf_gh')||'{}'),P:[],C:[],PG:[],ST:{},F:{},f:{},del:[],t:'p',e:null,d:null,dp:0,ds:0,dc:0,q:'',cg:null,ok:0};
 const GR={index:'home',category:'shop',gallery:'gallery',about:'about',contact:'contact',payment:'payment'};
 const api=(p,m,b)=>fetch(`https://api.github.com/repos/${S.g.o}/${S.g.r}/contents/${p}`+(m?'':`?ref=${S.g.b}&t=${Date.now()}`),{method:m||'GET',body:b&&JSON.stringify(b),headers:{Authorization:'Bearer '+S.g.t,Accept:'application/vnd.github+json','Content-Type':'application/json'}});
+const gh=(p,m,b)=>fetch(`https://api.github.com/repos/${S.g.o}/${S.g.r}${p?'/'+p:''}`,{method:m||'GET',body:b&&JSON.stringify(b),headers:{Authorization:'Bearer '+S.g.t,Accept:'application/vnd.github+json','Content-Type':'application/json'}}).then(async r=>{const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.message||('HTTP '+r.status));return j});
+const repo=()=>gh('').then(j=>{S.sz=j.size;R()}).catch(()=>{});
 const u8=s=>{let x='';new TextEncoder().encode(s).forEach(c=>x+=String.fromCharCode(c));return btoa(x)};
 const d8=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g,'')),c=>c.charCodeAt(0)));
-const rs=(f,w,png)=>new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,w/i.width),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);r(c.toDataURL(png?'image/png':'image/jpeg',.82))};i.src=URL.createObjectURL(f)});
+const rs=(f,w,png)=>new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,w/i.width),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);const d=c.toDataURL(png?'image/png':'image/jpeg',.82),kb=Math.round(d.length*.75/1024);if(kb>600)alert('This photo is large ('+kb+' KB). Smaller photos load faster and keep the repository small.');r(d)};i.src=URL.createObjectURL(f)});
 const SZ={panjabi:'38,40,42,44',jeans:'30,32,34,36',pants:'30,32,34,36',trousers:'30,32,34,36',accessories:'Free Size'};
 const SL=[['Home hero photo','assets/images/hero/hero.jpg',1000],['Home banner photo','assets/images/banners/jeans-collection.jpg',1200],['About photo','assets/images/about/about.jpg',800],['Founder photo (optional)','assets/images/about/founder.jpg',600],['Popup photo','assets/images/popup/popup.jpg',800],['Bangla QR (PNG)','assets/images/payment/bangla-qr.png',600,1]];
 for(let i=1;i<=12;i++)SL.push(['Gallery '+i,`assets/images/gallery/gallery-${String(i).padStart(2,'0')}.jpg`,900]);
@@ -34,7 +36,7 @@ const ld=async p=>{const r=await api(p);if(!r.ok)throw p;return d8((await r.json
 async function conn(){S.g={o:$('#o').value.trim(),r:$('#r').value.trim(),b:$('#b').value.trim()||'main',t:$('#t').value.trim()};localStorage.setItem('nf_gh',JSON.stringify(S.g));$('#er').textContent='Connecting...';
 try{const[a,b,c]=await Promise.all([ld('data/products.js'),ld('config.js'),ld('data/site.js')]);
 const x=new Function(a+';return{CATEGORIES,PRODUCTS}')(),y=new Function(b+';return CONFIG')(),z=new Function(c+';return{PAGES,SITE}')();
-S.C=x.CATEGORIES;S.P=x.PRODUCTS;S.F={...DEF,...y};S.PG=z.PAGES;S.ST=z.SITE;S.ST.custom=S.ST.custom||{};S.ST.about={...AB,...S.ST.about};S.ok=1;R()}
+S.C=x.CATEGORIES;S.P=x.PRODUCTS;S.F={...DEF,...y};S.PG=z.PAGES;S.ST=z.SITE;S.ST.custom=S.ST.custom||{};S.ST.about={...AB,...S.ST.about};S.ok=1;R();repo()}
 catch(e){$('#er').textContent=e==='data/site.js'?'data/site.js is missing in your repository. Upload the new update files first (see README).':'Could not connect. Check username, repository, branch and token (Contents: read and write).'}}
 function R(){const A=$('#a');
 if(!S.ok){A.innerHTML=`<h1>NICE FASHION Admin</h1><div class="bx"><p class="m">Connect your GitHub repository (one time).</p><input id="o" placeholder="GitHub username" value="${v(S.g.o)}"><input id="r" placeholder="Repository name" value="${v(S.g.r)}"><input id="b" placeholder="Branch (main)" value="${v(S.g.b||'main')}"><input id="t" type="password" placeholder="Access token" value="${v(S.g.t)}"><button onclick="conn()">Connect</button><p class="m" id="er"></p><p class="m">The token is saved only in this browser.</p></div>`;bar();return}
@@ -82,18 +84,22 @@ function vs(){const on=S.F.onlineSelling===true;return `<div class="bx"><h3>Onli
 return typeof x==='boolean'?`<div class="chk"><input type="checkbox" ${x?'checked':''} onchange="sf('${k}',this.checked)"> ${lb}</div>`:/accent|color/i.test(k)&&/^#[0-9a-f]{6}$/i.test(x)?`<label class="m">${lb}</label><input type="color" value="${x}" oninput="sf('${k}',this.value)">`:`<label class="m">${lb}</label>${String(x).length>60?`<textarea rows="3" oninput="sf('${k}',this.value,${n})">${v(x)}</textarea>`:`<input value="${v(x)}" oninput="sf('${k}',this.value,${n})">`}`}).join('')+`</div>`}
 function tg(){S.F.onlineSelling=!S.F.onlineSelling;S.dc=1;R()}
 function sf(k,x,num){S.F[k]=k==='mapEmbed'?((x.match(/src=["']([^"']+)/)||[0,x])[1]).trim():num?(+x||0):x;S.dc=1;bar()}
-function vi(){return `<div class="bx"><p class="m">Pick a new photo to replace the current one (same file name is kept).</p>`+SL.map((s,i)=>`<div class="sl"><img src="${img(s[1])}" alt="" onerror="this.style.opacity=.2"><div><b>${s[0]}</b><input type="file" accept="image/*" onchange="si(${i},this)"></div></div>`).join('')+`</div>`}
+function vi(){return `<div class="bx"><p class="m">Pick a new photo to replace the current one (same file name is kept).</p>${S.sz!=null?`<p class="m">Repository size: ${(S.sz/1024).toFixed(1)} MB (GitHub recommends under 1000 MB)${S.sz>800000?' - getting full!':''}</p>`:''}`+SL.map((s,i)=>`<div class="sl"><img src="${img(s[1])}" alt="" onerror="this.style.opacity=.2"><div><b>${s[0]}</b><input type="file" accept="image/*" onchange="si(${i},this)"></div></div>`).join('')+`</div>`}
 async function si(i,f){if(!f.files[0])return;const s=SL[i],u=await rs(f.files[0],s[2],s[3]);S.f[s[1]]={b:u.split(',')[1],u};R()}
 function bar(){const b=$('#bar'),n=S.ok?cnt():0;b.style.display=n?'block':'none';b.innerHTML=`<button onclick="pub()">Publish ${n} change${n>1?'s':''} to website</button>`}
 const msg=t=>{const m=$('#ms');if(m)m.textContent=t};
-async function pub(){const L=[];for(const p in S.f)L.push([p,S.f[p].b,'Update image']);
-if(S.dp)L.push(['data/products.js',u8(`/* Managed by admin.html. "new":true = show on site ; "out":true = sold out ; "feat":true = featured */\nconst CATEGORIES=${JSON.stringify(S.C,null,1)};\nconst PRODUCTS=[\n${S.P.map(p=>JSON.stringify(p)).join(',\n')}\n];\n`),'Update products']);
-if(S.ds)L.push(['data/site.js',u8(`/* Managed by admin.html (pages, menu and page texts). You can also edit by hand. */\nconst PAGES=${JSON.stringify(S.PG,null,1)};\nconst SITE=${JSON.stringify(S.ST,null,1)};\n`),'Update pages']);
-S.F.v=Date.now();L.push(['config.js',u8(`/* Managed by admin.html (you can also edit by hand) */\nconst CONFIG=${JSON.stringify(S.F,null,1)};\n`),'Update settings']);
+async function pub(){try{const L=[];for(const p in S.f)L.push([p,S.f[p].b]);
+if(S.dp)L.push(['data/products.js',u8(`/* Managed by admin.html. "new":true = show on site ; "out":true = sold out ; "feat":true = featured */\nconst CATEGORIES=${JSON.stringify(S.C,null,1)};\nconst PRODUCTS=[\n${S.P.map(p=>JSON.stringify(p)).join(',\n')}\n];\n`)]);
+if(S.ds)L.push(['data/site.js',u8(`/* Managed by admin.html (pages, menu and page texts). You can also edit by hand. */\nconst PAGES=${JSON.stringify(S.PG,null,1)};\nconst SITE=${JSON.stringify(S.ST,null,1)};\n`)]);
+S.F.v=Date.now();L.push(['config.js',u8(`/* Managed by admin.html (you can also edit by hand) */\nconst CONFIG=${JSON.stringify(S.F,null,1)};\n`)]);
 const D=[...new Set(S.del)].filter(p=>!S.f[p]);
-for(let i=0;i<L.length+D.length;i++){msg(`Saving ${i+1} of ${L.length+D.length}...`);
-if(i<L.length){const[p,c,m]=L[i],g=await api(p),sha=g.ok?(await g.json()).sha:undefined,r=await api(p,'PUT',{message:m,content:c,sha,branch:S.g.b});if(!r.ok){msg('Error: '+(await r.json()).message);return}}
-else{const p=D[i-L.length],g=await api(p);if(g.ok)await api(p,'DELETE',{message:'Delete file',sha:(await g.json()).sha,branch:S.g.b})}}
-S.f={};S.del=[];S.dp=S.ds=S.dc=0;R();msg('Done. The website updates in 1-2 minutes.')}
+msg('Preparing...');const rf=await gh(`git/ref/heads/${S.g.b}`),cs=rf.object.sha,cm=await gh(`git/commits/${cs}`),ts=cm.tree.sha;
+const ex=new Set((await gh(`git/trees/${ts}?recursive=1`)).tree.map(t=>t.path)),T=[];let n=0;
+for(const[p,c]of L){msg(`Uploading ${++n} of ${L.length}...`);const b=await gh('git/blobs','POST',{content:c,encoding:'base64'});T.push({path:p,mode:'100644',type:'blob',sha:b.sha})}
+D.forEach(p=>{if(ex.has(p))T.push({path:p,mode:'100644',type:'blob',sha:null})});
+msg('Saving as one update...');const nt=await gh('git/trees','POST',{base_tree:ts,tree:T}),nc=await gh('git/commits','POST',{message:'Update from admin panel',tree:nt.sha,parents:[cs]});
+await gh(`git/refs/heads/${S.g.b}`,'PATCH',{sha:nc.sha});
+S.f={};S.del=[];S.dp=S.ds=S.dc=0;R();msg('Done. The website updates in 1-2 minutes.');repo()}
+catch(e){msg('Error: '+e.message+(/not accessible/i.test(e.message)?' (the token needs Contents: Read and write for this repository)':/fast.?forward|not a fast/i.test(e.message)?' (the repository changed meanwhile: reload this page and try again)':''))}}
 R();
 </script></body></html>

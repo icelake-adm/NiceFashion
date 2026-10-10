@@ -16,7 +16,7 @@ const PAGES=[
   "k": "gallery",
   "t": "Gallery",
   "bn": "গ্যালারি",
-  "show": true
+  "show": false
  },
  {
   "k": "about",
@@ -34,7 +34,7 @@ const PAGES=[
   "k": "payment",
   "t": "Pay",
   "bn": "পেমেন্ট",
-  "show": true
+  "show": false
  }
 ];
 const SITE={
@@ -69,6 +69,14 @@ const SITE={
   "sub": "Our latest looks."
  },
  "about": {
+  "founder": "Founder Name",
+  "founder_title": "Founder",
+  "shop_addr": "Shop address, City",
+  "office_addr": "Office address, City",
+  "open_time": "10:00 AM",
+  "close_time": "9:00 PM",
+  "off_days": "Friday closed",
+  "office_hours": "Sat–Thu, 10:00 AM – 6:00 PM",
   "title": "Style Meets Comfort",
   "text": "NICE FASHION is a men's wear brand built on one idea: simple looks better. Every piece uses soft, breathable fabric and durable stitching, so you look sharp and feel comfortable all day.",
   "f1": "Premium Fabric",

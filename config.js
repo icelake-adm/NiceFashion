@@ -1,5 +1,10 @@
 /* Managed by admin.html (you can also edit by hand) */
 const CONFIG={
+ "onlineSelling": false,
+ "offerTextOff": "Visit our showroom · Easy exchange",
+ "btnOrder": "Order on WhatsApp",
+ "btnInquiry": "Check Availability on WhatsApp",
+ "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1898.8279242098888!2d90.48494128190225!3d23.668967693271117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b70058c6fdc3%3A0xedbe854b53413c60!2sNice%20Fashion!5e0!3m2!1sen!2sbd!4v1791626585870!5m2!1sen!2sbd",
  "secTrust": true,
  "secCategories": true,
  "secNew": true,
@@ -9,7 +14,7 @@ const CONFIG={
  "bgColor": "#09090a",
  "brand": "NICE FASHION",
  "tagline": "Wear Your Confidence",
- "whatsapp": "01852209732",
+ "whatsapp": "+8801852209732",
  "phone": "+8801852-209732",
  "email": "",
  "address": "Dhaka, Bangladesh",
@@ -24,5 +29,5 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1791542688251
+ "v": 1791626666925
 };

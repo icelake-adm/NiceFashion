@@ -14,7 +14,8 @@ input[type=color]{height:46px;padding:4px}button{background:#c8a96e;color:#111;f
 </style></head><body><div id="a"></div><div class="bar" id="bar" style="display:none"></div>
 <script>
 const $=s=>document.querySelector(s),v=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'),clean=s=>String(s).replace(/[<>"]/g,''),sl=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const DEF={secTrust:true,secCategories:true,secNew:true,secBanner:true,secCta:true,accent:'#c8a96e',bgColor:'#09090a'};
+const AB={founder:'Founder Name',founder_title:'Founder',shop_addr:'Shop address, City',office_addr:'Office address, City',open_time:'10:00 AM',close_time:'9:00 PM',off_days:'Friday closed',office_hours:'Sat–Thu, 10:00 AM – 6:00 PM'};
+const DEF={onlineSelling:false,offerTextOff:'Visit our showroom · Easy exchange',btnOrder:'Order on WhatsApp',btnInquiry:'Check Availability on WhatsApp',mapEmbed:'',secTrust:true,secCategories:true,secNew:true,secBanner:true,secCta:true,accent:'#c8a96e',bgColor:'#09090a'};
 const S={g:JSON.parse(localStorage.getItem('nf_gh')||'{}'),P:[],C:[],PG:[],ST:{},F:{},f:{},del:[],t:'p',e:null,d:null,dp:0,ds:0,dc:0,q:'',cg:null,ok:0};
 const GR={index:'home',category:'shop',gallery:'gallery',about:'about',contact:'contact',payment:'payment'};
 const api=(p,m,b)=>fetch(`https://api.github.com/repos/${S.g.o}/${S.g.r}/contents/${p}`+(m?'':`?ref=${S.g.b}&t=${Date.now()}`),{method:m||'GET',body:b&&JSON.stringify(b),headers:{Authorization:'Bearer '+S.g.t,Accept:'application/vnd.github+json','Content-Type':'application/json'}});
@@ -22,7 +23,7 @@ const u8=s=>{let x='';new TextEncoder().encode(s).forEach(c=>x+=String.fromCharC
 const d8=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g,'')),c=>c.charCodeAt(0)));
 const rs=(f,w,png)=>new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,w/i.width),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);r(c.toDataURL(png?'image/png':'image/jpeg',.82))};i.src=URL.createObjectURL(f)});
 const SZ={panjabi:'38,40,42,44',jeans:'30,32,34,36',pants:'30,32,34,36',trousers:'30,32,34,36',accessories:'Free Size'};
-const SL=[['Home hero photo','assets/images/hero/hero.jpg',1000],['Home banner photo','assets/images/banners/jeans-collection.jpg',1200],['About photo','assets/images/about/about.jpg',800],['Popup photo','assets/images/popup/popup.jpg',800],['Bangla QR (PNG)','assets/images/payment/bangla-qr.png',600,1]];
+const SL=[['Home hero photo','assets/images/hero/hero.jpg',1000],['Home banner photo','assets/images/banners/jeans-collection.jpg',1200],['About photo','assets/images/about/about.jpg',800],['Founder photo (optional)','assets/images/about/founder.jpg',600],['Popup photo','assets/images/popup/popup.jpg',800],['Bangla QR (PNG)','assets/images/payment/bangla-qr.png',600,1]];
 for(let i=1;i<=12;i++)SL.push(['Gallery '+i,`assets/images/gallery/gallery-${String(i).padStart(2,'0')}.jpg`,900]);
 const cnt=()=>(S.dp?1:0)+(S.ds?1:0)+(S.dc?1:0)+Object.keys(S.f).length+S.del.length;
 const raw=p=>location.protocol.startsWith('http')?p:`https://raw.githubusercontent.com/${S.g.o}/${S.g.r}/${S.g.b}/${p}`;
@@ -33,7 +34,7 @@ const ld=async p=>{const r=await api(p);if(!r.ok)throw p;return d8((await r.json
 async function conn(){S.g={o:$('#o').value.trim(),r:$('#r').value.trim(),b:$('#b').value.trim()||'main',t:$('#t').value.trim()};localStorage.setItem('nf_gh',JSON.stringify(S.g));$('#er').textContent='Connecting...';
 try{const[a,b,c]=await Promise.all([ld('data/products.js'),ld('config.js'),ld('data/site.js')]);
 const x=new Function(a+';return{CATEGORIES,PRODUCTS}')(),y=new Function(b+';return CONFIG')(),z=new Function(c+';return{PAGES,SITE}')();
-S.C=x.CATEGORIES;S.P=x.PRODUCTS;S.F={...DEF,...y};S.PG=z.PAGES;S.ST=z.SITE;S.ST.custom=S.ST.custom||{};S.ok=1;R()}
+S.C=x.CATEGORIES;S.P=x.PRODUCTS;S.F={...DEF,...y};S.PG=z.PAGES;S.ST=z.SITE;S.ST.custom=S.ST.custom||{};S.ST.about={...AB,...S.ST.about};S.ok=1;R()}
 catch(e){$('#er').textContent=e==='data/site.js'?'data/site.js is missing in your repository. Upload the new update files first (see README).':'Could not connect. Check username, repository, branch and token (Contents: read and write).'}}
 function R(){const A=$('#a');
 if(!S.ok){A.innerHTML=`<h1>NICE FASHION Admin</h1><div class="bx"><p class="m">Connect your GitHub repository (one time).</p><input id="o" placeholder="GitHub username" value="${v(S.g.o)}"><input id="r" placeholder="Repository name" value="${v(S.g.r)}"><input id="b" placeholder="Branch (main)" value="${v(S.g.b||'main')}"><input id="t" type="password" placeholder="Access token" value="${v(S.g.t)}"><button onclick="conn()">Connect</button><p class="m" id="er"></p><p class="m">The token is saved only in this browser.</p></div>`;bar();return}
@@ -77,10 +78,11 @@ function pu(i,k,x){S.PG[i][k]=x;S.ds=1;bar()}
 function pa(){const t=clean($('#np').value.trim());if(!t){alert('Enter a name');return}let s=sl(t)||'page'+(Date.now()%1000);while(S.ST.custom[s])s+='-2';S.PG.push({k:'x-'+s,t,bn:'',show:true,custom:true,slug:s});S.ST.custom[s]={title:t,body:'',img:false};S.ds=1;R()}
 function pdel(i){const p=S.PG[i];if(confirm('Delete this page?')){if(S.ST.custom[p.slug].img)S.del.push(`assets/images/pages/${p.slug}.jpg`);delete S.ST.custom[p.slug];S.PG.splice(i,1);S.ds=1;R()}}
 async function pc(s,f){if(!f.files[0])return;const u=await rs(f.files[0],900);S.f[`assets/images/pages/${s}.jpg`]={b:u.split(',')[1],u};S.ST.custom[s].img=true;S.ds=1;R()}
-function vs(){return `<div class="bx"><p class="m">Site settings (colors, offers, payment, delivery, sections). Tap Publish when done.</p>`+Object.keys(S.F).filter(k=>k!=='v').map(k=>{const x=S.F[k],lb=k.replace(/([A-Z])/g,' $1').toLowerCase(),n=typeof x==='number';
+function vs(){const on=S.F.onlineSelling===true;return `<div class="bx"><h3>Online Selling (payment + delivery)</h3><p class="m">${on?'ON: customers can order with payment and delivery.':'OFF: no payment, no Cash on Delivery, no delivery. Customers only check availability on WhatsApp and visit the showroom.'}</p><button class="${on?'':'d'}" onclick="tg()">Online Selling: ${on?'ON':'OFF'} (tap to turn ${on?'OFF':'ON'})</button></div><div class="bx"><p class="m">Site settings (colors, offers, payment, delivery, sections). Tap Publish when done.</p>`+Object.keys(S.F).filter(k=>k!=='v'&&k!=='onlineSelling').map(k=>{const x=S.F[k],lb=k==='mapEmbed'?'google map embed (Maps > Share > Embed a map > paste code)':k.replace(/([A-Z])/g,' $1').toLowerCase(),n=typeof x==='number';
 return typeof x==='boolean'?`<div class="chk"><input type="checkbox" ${x?'checked':''} onchange="sf('${k}',this.checked)"> ${lb}</div>`:/accent|color/i.test(k)&&/^#[0-9a-f]{6}$/i.test(x)?`<label class="m">${lb}</label><input type="color" value="${x}" oninput="sf('${k}',this.value)">`:`<label class="m">${lb}</label>${String(x).length>60?`<textarea rows="3" oninput="sf('${k}',this.value,${n})">${v(x)}</textarea>`:`<input value="${v(x)}" oninput="sf('${k}',this.value,${n})">`}`}).join('')+`</div>`}
-function sf(k,x,num){S.F[k]=num?(+x||0):x;S.dc=1;bar()}
-function vi(){return `<div class="bx"><p class="m">Pick a new photo to replace the current one (same file name is kept).</p>`+SL.map((s,i)=>`<div class="sl"><img src="${img(s[1])}" alt=""><div><b>${s[0]}</b><input type="file" accept="image/*" onchange="si(${i},this)"></div></div>`).join('')+`</div>`}
+function tg(){S.F.onlineSelling=!S.F.onlineSelling;S.dc=1;R()}
+function sf(k,x,num){S.F[k]=k==='mapEmbed'?((x.match(/src=["']([^"']+)/)||[0,x])[1]).trim():num?(+x||0):x;S.dc=1;bar()}
+function vi(){return `<div class="bx"><p class="m">Pick a new photo to replace the current one (same file name is kept).</p>`+SL.map((s,i)=>`<div class="sl"><img src="${img(s[1])}" alt="" onerror="this.style.opacity=.2"><div><b>${s[0]}</b><input type="file" accept="image/*" onchange="si(${i},this)"></div></div>`).join('')+`</div>`}
 async function si(i,f){if(!f.files[0])return;const s=SL[i],u=await rs(f.files[0],s[2],s[3]);S.f[s[1]]={b:u.split(',')[1],u};R()}
 function bar(){const b=$('#bar'),n=S.ok?cnt():0;b.style.display=n?'block':'none';b.innerHTML=`<button onclick="pub()">Publish ${n} change${n>1?'s':''} to website</button>`}
 const msg=t=>{const m=$('#ms');if(m)m.textContent=t};

@@ -1,4 +1,4 @@
-/* Managed by admin.html (you can also edit by hand) */
+/* Managed by the control panel (you can also edit by hand) */
 const CONFIG={
  "onlineSelling": false,
  "offerTextOff": "Visit our showroom · Easy exchange",
@@ -10,7 +10,7 @@ const CONFIG={
  "secNew": true,
  "secBanner": true,
  "secCta": true,
- "accent": "#c8a96e",
+ "accent": "#f0b04a",
  "bgColor": "#09090a",
  "brand": "NICE FASHION",
  "tagline": "Wear Your Confidence",
@@ -29,5 +29,5 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1791639638350
+ "v": 1791916326660
 };

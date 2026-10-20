@@ -1,5 +1,9 @@
 /* Managed by the control panel (you can also edit by hand) */
 const CONFIG={
+ "bkashUrl": "",
+ "showBkashQr": true,
+ "trxAsk": true,
+ "nagad": "",
  "onlineSelling": false,
  "offerTextOff": "Visit our showroom · Easy exchange",
  "btnOrder": "Order on WhatsApp",
@@ -10,10 +14,10 @@ const CONFIG={
  "secNew": true,
  "secBanner": true,
  "secCta": true,
- "accent": "#f0b04a",
+ "accent": "#3e5180",
  "bgColor": "#09090a",
  "brand": "NICE FASHION",
- "tagline": "Wear Your Confidence",
+ "tagline": "Wear Your Style",
  "whatsapp": "+8801852209732",
  "phone": "+8801852-209732",
  "email": "",
@@ -29,5 +33,5 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1791916326660
+ "v": 1792468779596
 };

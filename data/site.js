@@ -1,4 +1,4 @@
-/* Managed by admin.html (pages, menu and page texts). You can also edit by hand. */
+/* Managed by the control panel (pages, menu and page texts). */
 const PAGES=[
  {
   "k": "index",
@@ -16,7 +16,7 @@ const PAGES=[
   "k": "gallery",
   "t": "Gallery",
   "bn": "গ্যালারি",
-  "show": false
+  "show": true
  },
  {
   "k": "about",

@@ -1,10 +1,19 @@
 /* Managed by the control panel (you can also edit by hand) */
 const CONFIG={
+ "siteUrl": "https://icelake-adm.github.io/NiceFashion",
+ "galleryCount": 8,
+ "msgPhotos": true,
+ "orderWebhook": "",
+ "fbPixelId": "",
+ "gaId": "",
+ "popupDelay": 1.2,
+ "popupEvery": "session",
+ "logoText": true,
  "bkashUrl": "",
  "showBkashQr": true,
  "trxAsk": true,
  "nagad": "",
- "onlineSelling": false,
+ "onlineSelling": true,
  "offerTextOff": "Visit our showroom · Easy exchange",
  "btnOrder": "Order on WhatsApp",
  "btnInquiry": "Check Availability on WhatsApp",
@@ -33,5 +42,5 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1792573750069
+ "v": 1792578734969
 };

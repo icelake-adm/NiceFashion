@@ -14,8 +14,8 @@ const CONFIG={
  "secNew": true,
  "secBanner": true,
  "secCta": true,
- "accent": "#3e5180",
- "bgColor": "#09090a",
+ "accent": "#ffffff",
+ "bgColor": "#000000",
  "brand": "NICE FASHION",
  "tagline": "Wear Your Style",
  "whatsapp": "+8801852209732",
@@ -33,5 +33,5 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1792505927749
+ "v": 1792573750069
 };

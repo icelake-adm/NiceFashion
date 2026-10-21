@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://icelake-adm.github.io/NiceFashion/sitemap.xml

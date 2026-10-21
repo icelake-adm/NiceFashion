@@ -1,3 +1,4 @@
+/* NICE FASHION website v5.0 */
 :root{--bg:#f7f3ec;--card:#fff;--ink:#14171c;--mute:#6b6f76;--acc:#9c7a4a;--line:#e3dccf;--dk:#14171c;--dkt:#f7f3ec;box-sizing:border-box}
 @media(prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a20;--ink:#f3eee4;--mute:#9a9ea6;--acc:#c8a96e;--line:#262a32;--dk:#171a20}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 Jost,system-ui,'Noto Sans Bengali',sans-serif}
@@ -83,3 +84,16 @@ s{color:var(--mute);margin-right:6px}.pc{color:var(--acc);font-size:12px;margin-
 .ono{color:#5fd38d}.onc{color:#ff8a8a}
 @media(min-width:760px){.info{grid-template-columns:repeat(2,1fr)}}
 .pi img{max-width:260px;width:100%;background:#fff;padding:8px;margin:10px auto;display:block}.pi .btn{display:block;margin:8px 0;text-align:center}.pi{text-align:center}
+/* ===== v5 ===== */
+.tbar{background:#7a1f1f;color:#fff;text-align:center;font-size:13px;padding:7px 10px;letter-spacing:.04em}.tbar b{font-variant-numeric:tabular-nums;margin:0 4px}.tbar a{color:#fff;text-decoration:underline;margin-left:6px}
+nav a.hot{color:var(--acc)}nav a.hot::after{content:'●';font-size:8px;margin-left:5px;color:#ff5d5d}
+.logo img.lg{height:30px;width:auto;max-width:130px}
+.fbadge{display:inline-block;background:var(--acc);color:#111;font-size:11px;font-weight:600;letter-spacing:.12em;padding:3px 8px}
+.look{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.lk{cursor:pointer;text-align:center;font-size:12px}.pan .lk img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;margin:0 0 4px;max-height:none}.lk small{display:block}
+.lnk{color:var(--acc);text-decoration:underline}
+.sgt{width:100%;border-collapse:collapse;margin:8px 0}.sgt th,.sgt td{border:1px solid var(--line);padding:8px;text-align:center;font-size:14px}.sgt th{background:var(--card);color:var(--acc)}
+.cp{display:flex;gap:8px}.cp input{margin:0 0 8px}.cp .btn{width:auto;padding:0 18px;margin-bottom:8px}
+.cdbox{border:1px solid var(--acc);padding:10px;text-align:center;margin:10px 0;color:var(--acc)}.cdbox b{font-size:20px;font-variant-numeric:tabular-nums}
+.fban{width:100%;margin-bottom:14px}.cpn{font:700 26px Montserrat,sans-serif;letter-spacing:.2em;color:var(--acc);margin:8px 0}.fguide{margin-top:30px}.fguide img{width:100%}
+#pd .th img,#pd #mi{max-height:none}#pd #mi{width:100%;max-width:520px;margin:0 auto 10px}#pd{max-width:560px}
+footer a{color:var(--acc)}

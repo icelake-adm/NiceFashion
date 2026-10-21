@@ -1,0 +1,22 @@
+NICE FASHION - connect your own domain (example: nicefashion.com.bd) to GitHub Pages     (guide for v5.0)
+
+You need: a domain you bought (from any registrar, e.g. the one where you manage DNS), and admin access to the GitHub repository.
+
+STEP 1 - GitHub: repository > Settings > Pages > "Custom domain": type your domain WITHOUT https:// and WITHOUT www
+         (for example nicefashion.com.bd) and Save. GitHub checks the DNS and later turns on "Enforce HTTPS".
+STEP 2 - DNS (at your domain registrar), add these records:
+         Type A      Host @     Value 185.199.108.153
+         Type A      Host @     Value 185.199.109.153
+         Type A      Host @     Value 185.199.110.153
+         Type A      Host @     Value 185.199.111.153
+         Type CNAME  Host www   Value  <your-github-username>.github.io        (for you: icelake-adm.github.io)
+STEP 3 - Wait (a few minutes up to a day). Then in GitHub Pages tick "Enforce HTTPS".
+STEP 4 - Control panel > Settings > "Website address": change it to your new address (for example https://nicefashion.com.bd)
+         and Save & Publish. This updates share links, the sitemap, product-page share previews and the photo links in WhatsApp messages.
+STEP 5 - The static pages (index, category ...) contain share-preview tags with the old address (icelake-adm.github.io/NiceFashion).
+         Ask for the next update to refresh them, or edit og:image / og:title lines in index.html.
+         (Product pages under /p/ are rebuilt automatically from the Website address when you press Save & Publish.)
+Notes:
+ - Do not delete the CNAME file GitHub creates in the repository.
+ - Facebook caches share previews: after changing the address, use Facebook's Sharing Debugger to refresh a link.
+ - If you host elsewhere (for example Fatfog cPanel), the control panel still works only with GitHub; see the earlier hosting options.

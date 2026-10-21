@@ -1,0 +1,20 @@
+NICE FASHION website - version history
+
+v5.0 (2026-10-21)  Festival page (EID EXCLUSIVE): scheduled publish / auto-unpublish, content and photos from the panel; offer timer (per visitor hours or fixed end);
+                   coupons with price discount (generate in panel); WhatsApp order/availability messages include product photo links; clickable popup (delay, how often);
+                   Publish / Unpublish buttons for products, categories, pages; size guide; fabric & care; Complete the look; per-product pages (p/<id>.html) with share
+                   previews + Share button; sitemap, robots, 404, policy page; Facebook Pixel / Google Analytics (optional); order sheet (Google Apps Script);
+                   Texts tab (labels) and logo upload; gallery count fix; "View site" link fixed (icelake-adm.github.io/NiceFashion); data/store.js added.
+v4.1 (2026-10-20)  Control panel: existing photos now load through the GitHub API with your token (previews work from any place).
+v4.0 (2026-10-19)  Payment update: Online Selling & Payment ON/OFF (Dashboard + Payment section). OFF = WhatsApp only. ON = checkout.html with
+                   bKash QR + bKash number + payment link, Bangla QR, optional Nagad / Cash on Delivery, optional TrxID. Backup tool (download / restore,
+                   auto-backup before Save). Cart modal only lists items; form moved to checkout.html.
+v3.0 (2026-10-13)  Control panel redesigned like the Origo panel (Dashboard, row cards, Up/Down/Delete, Save & Publish bar), product reorder, in-panel Manual.
+v2.2 (2026-10-10)  Publish = one GitHub commit, repository size meter, large photo warning.
+v2.1 (2026-10-09)  Online Selling switch, availability forms, About details (founder, addresses, hours), Google Map, open-now badge.
+v2.0 (2026-10-08)  GitHub control panel v1: products, categories, pages (publish/unpublish, new pages), settings, site photos.
+v1.2               Mobile menu, black premium theme, Montserrat font, showroom section.
+v1.1               Checkout with name/phone/address and WhatsApp order, discounts, search, popup.
+v1.0               First static site: categories, product photos, WhatsApp order.
+
+File naming: Nice-Fashion-Website-<version>-full.zip (whole project) and ...-update-code-only.zip (only changed code files; never contains config.js or data files).

@@ -1,5 +1,7 @@
 NICE FASHION website - version history
 
+v5.1 (2026-10-21)  Control panel fix: the v5.0 admin.html did not open (a script-closing tag inside the page-builder code ended the script early). Fixed; the panel now shows a red message if anything fails while loading.
+                   Website files are unchanged from v5.0. Tested in headless Chromium with a mocked GitHub API.
 v5.0 (2026-10-21)  Festival page (EID EXCLUSIVE): scheduled publish / auto-unpublish, content and photos from the panel; offer timer (per visitor hours or fixed end);
                    coupons with price discount (generate in panel); WhatsApp order/availability messages include product photo links; clickable popup (delay, how often);
                    Publish / Unpublish buttons for products, categories, pages; size guide; fabric & care; Complete the look; per-product pages (p/<id>.html) with share

@@ -29,10 +29,10 @@ const CONFIG={
  "tagline": "Wear Your Style",
  "whatsapp": "+8801852209732",
  "phone": "+8801852-209732",
- "email": "",
- "address": "Dhaka, Bangladesh",
- "facebook": "#",
- "instagram": "#",
+ "email": "nicefashionltdbd@gmail.com",
+ "address": "Shop no-1019, First Floor, Shimanto Tower, Jalkuri, Narayanganj. ",
+ "facebook": "https://www.facebook.com/share/1CJm8s57e4/",
+ "instagram": "nicefashionltdbd",
  "currency": "৳",
  "payment": true,
  "accountName": "NICE FASHION",
@@ -42,5 +42,5 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1792578734969
+ "v": 1792668196061
 };

@@ -1,5 +1,7 @@
 /* Managed by the control panel (you can also edit by hand) */
 const CONFIG={
+ "deliveryOn": false,
+ "showBanglaQr": false,
  "siteUrl": "https://icelake-adm.github.io/NiceFashion",
  "galleryCount": 8,
  "msgPhotos": true,
@@ -32,7 +34,7 @@ const CONFIG={
  "email": "nicefashionltdbd@gmail.com",
  "address": "Shop no-1019, First Floor, Shimanto Tower, Jalkuri, Narayanganj. ",
  "facebook": "https://www.facebook.com/share/1CJm8s57e4/",
- "instagram": "nicefashionltdbd",
+ "instagram": "https://instagram.com/nicefashionltdbd",
  "currency": "৳",
  "payment": true,
  "accountName": "NICE FASHION",
@@ -42,5 +44,7 @@ const CONFIG={
  "popupText": "Premium shirts, tees and baggy jeans are here.",
  "popupButton": "Shop Now",
  "popupLink": "category.html",
- "v": 1792668196061
+ "v": 1792735226438,
+ "bkashOn": false,
+ "nagadOn": false
 };

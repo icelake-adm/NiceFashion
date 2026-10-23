@@ -50,8 +50,8 @@ const SITE={
   "title": "Wear Your Confidence",
   "text": "Shirts, t-shirts, polo, panjabi and baggy jeans. Soft fabric, clean finishing, order easily on WhatsApp.",
   "btn": "Shop Collection",
-  "t1": "Cash on Delivery",
-  "t2": "Fast Delivery",
+  "t1": "Pick up from Showroom",
+  "t2": "Reliable Products",
   "t3": "Easy Exchange",
   "t4": "WhatsApp Support",
   "cats_t": "Shop by Category",
@@ -78,8 +78,8 @@ const SITE={
  "about": {
   "founder": "Md. Nahid Newas",
   "founder_title": "Founder",
-  "shop_addr": "Shop address, City",
-  "office_addr": "Office address, City",
+  "shop_addr": "Shop no-1019, First Floor, Shimanto Tower, Jalkuri, Narayanganj.",
+  "office_addr": "275 R.K Villa, Sector#6, Road#3 Tushardhara R/A, Fatulla, Narayanganj",
   "open_time": "10:00 AM",
   "close_time": "9:00 PM",
   "off_days": "Friday closed",
@@ -98,7 +98,7 @@ const SITE={
  "contact": {
   "title": "Contact Us",
   "del_t": "Delivery & Returns",
-  "del_x": "Cash on Delivery available. Exchange if size or quality is not right (message us on WhatsApp with photos).",
+  "del_x": "Pickup from Shop available. Exchange if size or quality is not right (message us on WhatsApp with photos).",
   "msg_t": "Send a Message",
   "btn_msg": "Send on WhatsApp"
  },

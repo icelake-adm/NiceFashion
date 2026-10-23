@@ -1,4 +1,4 @@
-/* NICE FASHION website v5.0 */
+/* NICE FASHION website v6.0 */
 :root{--bg:#f7f3ec;--card:#fff;--ink:#14171c;--mute:#6b6f76;--acc:#9c7a4a;--line:#e3dccf;--dk:#14171c;--dkt:#f7f3ec;box-sizing:border-box}
 @media(prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a20;--ink:#f3eee4;--mute:#9a9ea6;--acc:#c8a96e;--line:#262a32;--dk:#171a20}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 Jost,system-ui,'Noto Sans Bengali',sans-serif}
@@ -97,3 +97,4 @@ nav a.hot{color:var(--acc)}nav a.hot::after{content:'●';font-size:8px;margin-l
 .fban{width:100%;margin-bottom:14px}.cpn{font:700 26px Montserrat,sans-serif;letter-spacing:.2em;color:var(--acc);margin:8px 0}.fguide{margin-top:30px}.fguide img{width:100%}
 #pd .th img,#pd #mi{max-height:none}#pd #mi{width:100%;max-width:520px;margin:0 auto 10px}#pd{max-width:560px}
 footer a{color:var(--acc)}
+.lb{display:block;font-size:12px;color:var(--mute);letter-spacing:.08em;text-transform:uppercase;margin:8px 0 4px}

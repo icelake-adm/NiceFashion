@@ -1,4 +1,4 @@
-NICE FASHION website v5.0 - see CHANGELOG.txt for the version history.
+NICE FASHION website v6.0 - see CHANGELOG.txt for the version history.
 
 NICE FASHION website  (open index.html)
 

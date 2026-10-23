@@ -1,5 +1,10 @@
 NICE FASHION website - version history
 
+v6.0 (2026-10-23)  Checkout fix: total no longer shows NaN (missing delivery charge is treated as 0). Delivery ON/OFF switch (OFF = no address, no area, no delivery charge, pickup from showroom).
+                   Payment methods can be turned on/off one by one: Cash (at showroom or on delivery), bKash, Nagad, Bangla QR. Clear labels on every select box. Placeholder QR photos are no longer shown to customers
+                   (turn on "Show QR photo" only after uploading your real photo). Floating WhatsApp button hidden on the checkout page.
+                   Control panel: Save draft (kept on this device) and Review & Publish are now separate. The review list shows every change with tick boxes (photos, products, settings, coupons...);
+                   untick anything you do not want to publish now and it stays in your draft. After publishing a list with check marks shows what went live.
 v5.1 (2026-10-21)  Control panel fix: the v5.0 admin.html did not open (a script-closing tag inside the page-builder code ended the script early). Fixed; the panel now shows a red message if anything fails while loading.
                    Website files are unchanged from v5.0. Tested in headless Chromium with a mocked GitHub API.
 v5.0 (2026-10-21)  Festival page (EID EXCLUSIVE): scheduled publish / auto-unpublish, content and photos from the panel; offer timer (per visitor hours or fixed end);

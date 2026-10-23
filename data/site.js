@@ -114,7 +114,7 @@ const SITE={
   "return_t": "Return & Exchange",
   "return_x": "Exchange is possible within 3 days if the size or quality is not right. The item must be unused and in its original condition. Message us on WhatsApp with photos.",
   "delivery_t": "Delivery",
-  "delivery_x": "Delivery is available inside and outside Dhaka. Delivery charge and time are confirmed on WhatsApp.",
+  "delivery_x": "Currently Delivery is not available. Only Pick up from shop available.",
   "privacy_t": "Privacy",
   "privacy_x": "We only use your name, phone number and address to process your order or answer your question. We do not sell your information."
  }
